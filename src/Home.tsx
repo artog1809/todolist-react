@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Create from './Create'
 import "./App.css"
 import axios from 'axios';
-import { BsCircleFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
-import { BsCheckCircleFill } from 'react-icons/bs';
 
-// Определяем тип для объекта todo
 interface Todo {
-    _id: number; // Измените тип в соответствии с вашей структурой данных
+    _id: number; 
     task: string;
+    description: string;
     done: boolean;
-    // Добавьте другие свойства, если у ваших объектов todo есть дополнительные поля
 }
 
 function Home() {
@@ -29,7 +26,7 @@ function Home() {
 
     const handleEdit = (id: number) => {
         axios.put(`http://localhost:3001/update/${id}`)
-            .then(result => {
+            .then(() => {
                 fetchTodos();
             })
             .catch(err => console.log(err));
@@ -37,16 +34,15 @@ function Home() {
 
     const handleDelete = (id: number) => {
         axios.delete(`http://localhost:3001/delete/${id}`)
-            .then(result => {
+            .then(() => {
                 fetchTodos();
             })
             .catch(err => console.log(err));
     }
 
-
     return (
         <div className='home'>
-            <h2 >ToDo List</h2>
+            <h2 >TO-DO LIST</h2>
             <Create />
             {todos.length === 0 ?
                 <div><h2>No Record</h2></div>
@@ -54,11 +50,8 @@ function Home() {
                 todos.map(todo => (
                     <div className='task'>
                         <div className='checkbox' onClick={() => handleEdit(todo._id)}>
-                            {todo.done ?
-                                <BsCheckCircleFill className='icon' />
-                                : <BsCircleFill className='icon' />
-                            }
-                            <p className={todo.done ? "line-through" : "linenot-through"}>{todo.task}</p>
+                            <div className = 'task__title'>{todo.task}</div>
+                            <div className= 'subtitle'>{todo.description}</div>
                         </div>
                         <div>
                             <span><BsTrashFill className='icon' onClick = {() => handleDelete(todo._id)}></BsTrashFill></span>
