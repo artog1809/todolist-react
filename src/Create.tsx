@@ -14,9 +14,9 @@ function Create() {
 
   return (
     <div className = "create_form">
-        <input type='text' placeholder='Write you want to do' {...taskName} />
-        <input type='text' placeholder="Write description of your task" {...taskDescription}/>
-        <button type='button' onClick={handleAdd}>Add</button>
+        <input type='text' placeholder='Write want are you want to do...' {...taskName} />
+        <input type='text' placeholder="Write description of your task..." {...taskDescription}/>
+        <button className="input__btn" type='button' onClick={handleAdd}>Add</button>
     </div>
   )
 }
