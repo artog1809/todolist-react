@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Create from './Create';
 import "./App.css";
 import axios from 'axios';
 import { BsTrashFill } from "react-icons/bs";
 import { MdDone } from "react-icons/md";
+import { AiOutlineClose } from "react-icons/ai";
+
 
 interface Todo {
     _id: number;
@@ -57,7 +59,11 @@ function Home() {
             </div>
             <div className='tasks'>
                 {filteredTodos.length === 0 ?
-                    <div><h2>No Record</h2></div>
+                    <div>
+                        <img className = 'img' src="public/sad.png"/>
+                        <div className = "norecord">Oops! It's Empty</div>
+                        <div className='norecord'>Look's like you don't have anything in your list</div>
+                    </div>
                     :
                     filteredTodos.map(todo => (
                         <div className={`task ${todo.done ? 'done' : ''}`} key={todo._id}>
@@ -68,8 +74,12 @@ function Home() {
                             <div>
                                 <span><BsTrashFill className='icon' onClick={() => handleDelete(todo._id)}></BsTrashFill></span>
                             </div>
-                            <div>
-                                <span><MdDone className='icon' onClick={() => handleDone(todo._id)}></MdDone></span>
+                            <div><span>
+                                {todo.done ? 
+                                (<AiOutlineClose className='icon' onClick={() => handleDone(todo._id)}></AiOutlineClose>)
+                                :
+                                (<MdDone className='icon' onClick={() => handleDone(todo._id)}></MdDone>)}
+                                </span>
                             </div>
                         </div>
                     ))
